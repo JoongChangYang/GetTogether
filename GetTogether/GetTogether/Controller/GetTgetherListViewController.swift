@@ -27,6 +27,9 @@ class GetTgetherListViewController: UIViewController {
         setupConstraint()
         setData()
         dump(promisses)
+        
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PromiseCell")
     }
 
     private func setupConstraint() {
@@ -48,4 +51,20 @@ class GetTgetherListViewController: UIViewController {
         }
     }
 
+}
+
+// MARK: - UITableViewDataSource
+extension GetTgetherListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return promisses.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PromiseCell", for: indexPath)
+        let data = promisses[indexPath.row]
+        cell.textLabel?.text = data.placeTitle
+        return cell
+    }
+    
+    
 }
