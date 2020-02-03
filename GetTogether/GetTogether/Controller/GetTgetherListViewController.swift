@@ -10,21 +10,42 @@ import UIKit
 
 class GetTgetherListViewController: UIViewController {
 
+    let tableView = UITableView()
+    var promisses = [Promise]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        // Do any additional setup after loading the view.
+        setUI()
+        
+    }
+    private func setUI() {
+        self.view.backgroundColor = .white
+        self.navigationItem.title = "약속 리스트"
+        [tableView].forEach {
+            view.addSubview($0)
+        }
+        setupConstraint()
+        setData()
+        dump(promisses)
+    }
+
+    private func setupConstraint() {
+        let guide = self.view.safeAreaLayoutGuide
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: guide.topAnchor,constant: 0),
+            tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: 0)
+        ])
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setData() {
+        for i in 0...20 {
+            let promiss = Promise(date: "date\(i)", members: "memebers\(i)", placeTitle: "placeTitle\(i)", placeLatitude: Double(i), placeLongitude: Double(i), comment: "comment\(i)")
+            promisses.append(promiss)
+        }
     }
-    */
 
 }
