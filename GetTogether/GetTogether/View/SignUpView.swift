@@ -58,6 +58,8 @@ class SignUpView: UIView {
     
     private let searchAddressButton = UIButton(type: .system)
     
+    private let addressNameLabel = UILabel()
+    
     private let signUpButton = UIButton(type: .system)
     
     private let scrollView = UIScrollView()
@@ -88,7 +90,7 @@ class SignUpView: UIView {
     private func setupUI() {
         backgroundColor = .white
         addSubview(scrollView)
-        scrollView.addSubViews([idTextField, idCheckButton, nickNameTextField, pwTextField, pwCheckTextField, searchAddressButton, signUpButton])
+        scrollView.addSubViews([idTextField, idCheckButton, nickNameTextField, pwTextField, pwCheckTextField, addressNameLabel, searchAddressButton, signUpButton])
         
         
         
@@ -128,6 +130,8 @@ class SignUpView: UIView {
         searchAddressButton.tintColor = .white
         searchAddressButton.addTarget(self, action: #selector(didTapSearchAddressButton), for: .touchUpInside)
         
+        addressNameLabel.text = "주소를 등록해 주세요."
+        addressNameLabel.textColor = ThemeColor.warning
         
         signUpButton.setTitle("회원가입", for: .normal)
         signUpButton.backgroundColor = ThemeColor.basic
@@ -180,9 +184,15 @@ class SignUpView: UIView {
             .leading(constant: marginX)
             .trailing(constant: -marginX)
         pwCheckTextField.heightAnchor.constraint(equalToConstant: height).isActive = true
-
+        
+        addressNameLabel.layout
+        .top(equalTo: pwCheckTextField.bottomAnchor, constant: marginY)
+        .leading(constant: marginX)
+        .trailing(constant: -marginX)
+        addressNameLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
+        
         searchAddressButton.layout
-            .top(equalTo: pwCheckTextField.bottomAnchor, constant: marginY)
+            .top(equalTo: addressNameLabel.bottomAnchor, constant: marginY)
             .leading(constant: marginX)
             .trailing(constant: -marginX)
         searchAddressButton.heightAnchor.constraint(equalToConstant: height).isActive = true

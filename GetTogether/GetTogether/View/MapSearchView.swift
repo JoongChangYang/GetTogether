@@ -9,9 +9,11 @@
 import UIKit
 import MapKit
 
+
+
 class MapSearchView: UIView {
     
-    private let mapView = MKMapView()
+     let mapView = MKMapView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,5 +30,23 @@ class MapSearchView: UIView {
         mapView.layout.top().leading().trailing().bottom()
     }
     
+    
+    func addAnnotation(addressName: String, coordinate: Coordinate) {
+        
+        let annotation = MKPointAnnotation()
+        annotation.title = addressName
+        annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        mapView.addAnnotation(annotation)
+        
+        setRegion(coordinate: coordinate)
+    }
+    
+    func setRegion(coordinate: Coordinate) {
+        
+        let coordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let spen = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+        let region = MKCoordinateRegion(center: coordinate, span: spen)
+        mapView.setRegion(region, animated: true)
+    }
     
 }

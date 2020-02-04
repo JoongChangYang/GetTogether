@@ -12,9 +12,12 @@ class SignUpViewController: UIViewController {
     
     private let signUpView = SignUpView()
     private var sginUpViewBottomConstraint: NSLayoutConstraint?
-    private var api = Api(apiProtocol: .http, apiUrl: .signUp, apiSocket: ":80")
+    private var api = Api(apiProtocol: .http, apiUrl: .signUp, port: 80)
+    private let className = "SignUpViewController"
+    private var coordinate: Coordinate?
     
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,16 +57,18 @@ class SignUpViewController: UIViewController {
     }
     
     private func addNotification() {
+        
+        
         NotificationCenter.default.addObserver( // 아이디 체크 옵저버
             self,
             selector: #selector(idCheckNotification(_:)),
-            name: NSNotification.Name(NotificationName.idCheck.rawValue),
+            name: NSNotification.Name(className + NotificationName.idCheck.rawValue),
             object: nil)
         
         NotificationCenter.default.addObserver(// 회원 가입 옵저버
             self,
             selector: #selector(signUpResponse(_:)),
-            name: NSNotification.Name(NotificationName.signUp.rawValue),
+            name: NSNotification.Name(className + NotificationName.signUp.rawValue),
             object: nil)
     }
     
@@ -128,7 +133,7 @@ extension SignUpViewController: signUpViewDelegate {
         
         api.request(
             method: .post,
-            notificationName: .signUp,
+            notificationName: className + NotificationName.signUp.rawValue,
             data: data
         )
     }
@@ -142,12 +147,23 @@ extension SignUpViewController: signUpViewDelegate {
             displayAlert(title: "알림", message: "아이디를 입력해 주세요")
             return
         }
-        api.request(method: .get, notificationName: .idCheck, data: ["id": id])
+        api.request(method: .get, notificationName: className + NotificationName.idCheck.rawValue, data: ["id": id])
     }
     
     func presentSerchMapViewController() {
-        let mapSearchVC = MapSearchViewController()
+        let mapSearchVC = MapSearchViewController(queryType: .address)
+        mapSearchVC.delegate = self
         navigationController?.pushViewController(mapSearchVC, animated: true)
     }
+    
+}
+
+
+extension SignUpViewController: MapSearchViewControllerDelegate {
+    func didTapOkButton(coordinate: Coordinate, addressName: String) {
+        self.coordinate = coordinate
+        
+    }
+    
     
 }

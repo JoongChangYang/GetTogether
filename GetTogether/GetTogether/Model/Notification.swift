@@ -12,4 +12,5 @@ import Foundation
 enum NotificationName: String {
     case idCheck
     case signUp
+    case searchKakao
 }

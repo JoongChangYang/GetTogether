@@ -19,7 +19,7 @@ struct Promise: Codable {
 }
 
 struct Coordinate: Codable {
-    let x: Double
-    let y: Double
     
+    let latitude: Double // y
+    let longitude: Double //x
 }
