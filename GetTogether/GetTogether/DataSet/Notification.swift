@@ -13,4 +13,7 @@ enum NotificationName: String {
     case idCheck
     case signUp
     case searchKakao
+    case login
+    case searchFriend
+    case addFriend
 }

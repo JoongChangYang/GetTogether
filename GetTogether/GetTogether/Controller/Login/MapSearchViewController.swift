@@ -55,7 +55,6 @@ class MapSearchViewController: UIViewController {
     
     @objc func getSearchValue(_ notification: Notification) {
         guard let json = notification.userInfo?[className + NotificationName.searchKakao.rawValue] as? [String: Any] else { return }
-//        dump(json["documents"])
         guard let documents = json["documents"] as? [[String: Any?]] else { return print(#function, #line, "Error")}
         guard let document = documents.first else { return print( #function , #line, "Error")}
         guard let roadAddress = document["road_address"] as? [String: Any?] else { return print( #function , #line, "Error")}
@@ -100,13 +99,15 @@ extension MapSearchViewController: UISearchBarDelegate {
         api.kakaoSearch(queryType: queryType, data: [ "query": query ], notificationName: className + NotificationName.searchKakao.rawValue)
     }
     
+    
+    // annotation 선택시 alert창이 뜨고 확인을 누르면 이전 컨트롤러에 좌표와 주소 전달
     private func disPlayAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
             guard let addressName = self.addressName, let coordinate = self.coordinate else { return }
             self.delegate?.didTapOkButton(coordinate: coordinate, addressName: addressName)
-            self.dismiss(animated: true)
+            self.navigationController?.popViewController(animated: true)
         })
         let cancleAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
@@ -125,7 +126,8 @@ extension MapSearchViewController: UISearchBarDelegate {
 extension MapSearchViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        disPlayAlert(title: "현재 주소로 등록 하시겠습니까?", message: "주소: \(addressName)")
+        guard let address = addressName else { return }
+        disPlayAlert(title: "현재 주소로 등록 하시겠습니까?", message: "주소: \(address)")
     }
     
     

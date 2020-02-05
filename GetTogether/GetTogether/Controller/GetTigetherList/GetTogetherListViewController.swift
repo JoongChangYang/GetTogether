@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GetTgetherListViewController: UIViewController {
+class GetTogetherListViewController: UIViewController {
 
     let tableView = UITableView()
     var promisses = [Promise]()
@@ -54,7 +54,7 @@ class GetTgetherListViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension GetTgetherListViewController: UITableViewDataSource {
+extension GetTogetherListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return promisses.count
     }

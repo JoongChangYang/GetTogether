@@ -15,6 +15,8 @@ enum ApiProtocol: String {
 
 enum ApiUrl: String {
     case signUp = "/SignUp.php"
+    case logIn =  "/Login.php"
+    case addFriend = "/AddFriend.php"
 }
 
 enum HttpMethod: String {
@@ -42,7 +44,7 @@ struct Api {
         self.port = ":\(port)"
     }
     
-    mutating func request (method: HttpMethod, notificationName: String, data: [String: String] ) {
+     func request (method: HttpMethod, notificationName: String, data: [String: String] ) {
         
         if method == .get {
             requestOfGet(data: data, notificationName: notificationName)
@@ -70,7 +72,7 @@ struct Api {
         
         
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = HttpMethod.get.rawValue
         let session = URLSession.shared
         
         let task = session.dataTask(
@@ -93,12 +95,14 @@ struct Api {
                 
                 // 들어온 데이터를 가공해서 notification을 날려준다
                 guard let data = data else { return print(#function, "Data is nil")}
-                guard let strData = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+//                guard let stringResponse = String(data: data, encoding: .utf8) else { return }
+//                print(stringResponse)
+                guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any?]
                     else { return print(#function, "data Decoding Fail")}
                 
                 DispatchQueue.main.async {
-                    print(strData)
-                    let userInfo: [AnyHashable: Any] = [notificationName: strData]
+//                    print(json)
+                    let userInfo: [AnyHashable: Any] = [notificationName: json]
                     NotificationCenter.default.post(
                         name: NSNotification.Name(notificationName),
                         object: nil,
@@ -113,12 +117,7 @@ struct Api {
     
     
     private func requestOfPost(data: [String: String], notificationName: String) {
-        
-//        guard let jsonData = try? JSONEncoder().encode(data)
-//            else { return print(#function, "json encodeFail")}
-//
-//        guard let bodyData = String(data: jsonData, encoding: .utf8)
-//            else { return print(#function, "make bodyData Fail")}
+        print("--------------------------------------\(#function)-------------------------------------------")
         
         
         
@@ -126,25 +125,21 @@ struct Api {
         body.removeLast()
         
         let paramData = body.data(using: .utf8)
-        print(body)
         
         let urlString = apiProtocol.rawValue + ip + port + dir + apiUrl.rawValue
         
         guard let encodString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            else { return print(#function, "\n urlEncodingError") }
-        guard let url = URL(string: encodString) else { return print(#function, "\n urlError")}
+            else { return print( "\n urlEncodingError") }
+        guard let url = URL(string: encodString) else { return print( "\n urlError")}
         
         var request = URLRequest(url: url)
         let session = URLSession.shared
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.post.rawValue
         
         
         request.setValue(String(paramData!.count), forHTTPHeaderField: "content-Length")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//        let body = bodyData.data(using: String.Encoding.utf8, allowLossyConversion: false)
         request.httpBody = paramData
         
         let task = session.dataTask(
@@ -165,13 +160,16 @@ struct Api {
 //
 //                }
                 
-                guard let data = data else { return print(#function, "Data is nil") }
-                guard let strData = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-                    else { return print(#function, "data Decodding Fail") }
+                guard let data = data else { return print( "Data is nil") }
+//                guard let stringResponse = String(data: data, encoding: .utf8) else { return }
+//                print(stringResponse)
+                guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any?]
+                    
+                    else { return print( "data Decodding Fail") }
                 
                 DispatchQueue.main.async {
-                    print(strData)
-                    let userInfo = [notificationName: strData]
+//                    print(json)
+                    let userInfo = [notificationName: json]
                     NotificationCenter.default.post(
                     name: NSNotification.Name(notificationName),
                     object: nil,

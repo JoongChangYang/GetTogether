@@ -11,7 +11,7 @@ import UIKit
 protocol signUpViewDelegate: class {
     func IDCheckAction(id: String)
     
-    func SignUpAction(user: User)
+    func SignUpAction(id: String, nickName: String, pw: String)
     
     func alertAction(title: String, message: String)
     
@@ -46,7 +46,6 @@ class SignUpView: UIView {
     }
     private var nickNameCheck = false
     
-    private var point: String?
     
     private let idTextField = UITextField()
     private let idCheckButton = UIButton(type: .system)
@@ -114,15 +113,15 @@ class SignUpView: UIView {
         pwTextField.borderStyle = .roundedRect
         pwTextField.delegate = self
         pwTextField.tag = 2
-        pwTextField.isSecureTextEntry = true
-        pwTextField.textContentType = .newPassword
+//        pwTextField.isSecureTextEntry = true
+        pwTextField.textContentType = .password
         
         pwCheckTextField.placeholder = "비밀번호 확인"
         pwCheckTextField.borderStyle = .roundedRect
         pwCheckTextField.delegate = self
         pwCheckTextField.tag = 3
-        pwCheckTextField.isSecureTextEntry = true
-        pwCheckTextField.textContentType = .newPassword
+//        pwCheckTextField.isSecureTextEntry = true
+        pwCheckTextField.textContentType = .password
         
         searchAddressButton.setTitle("주소 검색", for: .normal)
         searchAddressButton.backgroundColor = ThemeColor.basic
@@ -157,57 +156,67 @@ class SignUpView: UIView {
 
         idTextField.layout
             .top(equalTo: scrollView.topAnchor,constant: marginY * 12)
-            .leading(constant: marginX)
+            .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
         idTextField.heightAnchor.constraint(equalToConstant: height).isActive = true
         idTextField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.65).isActive = true
-
+        
         idCheckButton.layout
             .top(equalTo: scrollView.topAnchor, constant: marginY * 12)
             .leading(equalTo: idTextField.trailingAnchor, constant: 2)
-            .trailing(constant: -marginX)
+            .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         idCheckButton.heightAnchor.constraint(equalToConstant: height).isActive = true
-
+        
         nickNameTextField.layout
             .top(equalTo: idTextField.bottomAnchor, constant: marginY)
-            .leading(constant: marginX)
-            .trailing(constant: -marginX)
+            .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+            .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         nickNameTextField.heightAnchor.constraint(equalToConstant: height).isActive = true
-
+        nickNameTextField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
+        
         pwTextField.layout
             .top(equalTo: nickNameTextField.bottomAnchor, constant: marginY)
-            .leading(constant: marginX)
-            .trailing(constant: -marginX)
+            .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+            .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         pwTextField.heightAnchor.constraint(equalToConstant: height).isActive = true
-
+        pwTextField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
+        
         pwCheckTextField.layout
             .top(equalTo: pwTextField.bottomAnchor, constant: marginY)
-            .leading(constant: marginX)
-            .trailing(constant: -marginX)
+            .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+            .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         pwCheckTextField.heightAnchor.constraint(equalToConstant: height).isActive = true
+        pwCheckTextField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
         
         addressNameLabel.layout
         .top(equalTo: pwCheckTextField.bottomAnchor, constant: marginY)
-        .leading(constant: marginX)
-        .trailing(constant: -marginX)
+        .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+        .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         addressNameLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
+        addressNameLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
         
         searchAddressButton.layout
             .top(equalTo: addressNameLabel.bottomAnchor, constant: marginY)
-            .leading(constant: marginX)
-            .trailing(constant: -marginX)
+            .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+            .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         searchAddressButton.heightAnchor.constraint(equalToConstant: height).isActive = true
+        searchAddressButton.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
 
         signUpButton.layout
             .top(equalTo: searchAddressButton.bottomAnchor, constant: marginY)
-            .leading(constant: marginX)
-            .trailing(constant: -marginX)
+            .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+            .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
             .bottom(equalTo: scrollView.bottomAnchor)
         signUpButton.heightAnchor.constraint(equalToConstant: height).isActive = true
-        
+        signUpButton.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
         
          
         
         
+    }
+    
+    func setAdressName(addressName: String) {
+        addressNameLabel.text = addressName
+        addressNameLabel.textColor = ThemeColor.affirmation
     }
     
     
@@ -226,11 +235,12 @@ class SignUpView: UIView {
         
     }
     
+    
+    // 회원가입 버튼 클릭
     @objc func didTapSignUpButton() {
         guard let id = idTextField.text,
             let pw = pwTextField.text,
-            let nickname = nickNameTextField.text,
-            let addr = point
+            let nickname = nickNameTextField.text
             else {
                 delegate?.alertAction(title: "알림", message: "회원정보를 확인하세요")
                 return
@@ -240,9 +250,7 @@ class SignUpView: UIView {
             return
         }
         
-            let user = User(id: id, nickName: nickname, address: addr, pw: pw, image: nil)
-        
-        delegate?.SignUpAction(user: user)
+        delegate?.SignUpAction(id: id, nickName: nickname, pw: pw)
     }
     
     
