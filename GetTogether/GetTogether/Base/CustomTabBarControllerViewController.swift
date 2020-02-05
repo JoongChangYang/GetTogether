@@ -23,7 +23,7 @@ class CustomTabBarController: UITabBarController {
         friendListVC.tabBarItem = UITabBarItem(
             title: "",
             image: UIImage(systemName: "person.3"), tag: 1)
-        let getTogetherListVC = GetTogetherListViewController()
+        let getTogetherListVC = UINavigationController(rootViewController: GetTogetherListViewController())
         getTogetherListVC.tabBarItem = UITabBarItem(
             title: "",
             image: UIImage(systemName: "list.bullet"),
