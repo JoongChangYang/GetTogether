@@ -9,15 +9,15 @@
 import Foundation
 
 
-class User {
+class User: Codable {
     
     let id: String
     let pw: String?
     let nickName: String
-    let address: String
+    let address: Coordinate
     let image: String?
     
-    init(id: String, nickName: String, address: String, pw: String? = nil, image: String? = nil) {
+    init(id: String, nickName: String, address: Coordinate, pw: String? = nil, image: String? = nil) {
         self.id = id
         self.pw = pw
         self.nickName = nickName

@@ -10,6 +10,8 @@ import UIKit
 
 protocol LoginViewDelegate: class {
     func signUpAction()
+    
+    func loginAction(id: String, pw: String)
 }
 
 class LoginView: UIView {
@@ -42,11 +44,14 @@ class LoginView: UIView {
         
         pwTextField.placeholder = "비밀번호"
         pwTextField.borderStyle = .roundedRect
+        pwTextField.isSecureTextEntry = true
+        pwTextField.textContentType = .password
         
         loginButton.backgroundColor = ThemeColor.basic
         loginButton.setTitle("로그인", for: .normal)
         loginButton.tintColor = .white
         loginButton.layer.cornerRadius = 4
+        loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
         
         signUpButton.setTitle("회원가입", for: .normal)
         signUpButton.addTarget(self, action: #selector(didTapSignUpButton(_:)), for: .touchUpInside)
@@ -73,6 +78,12 @@ class LoginView: UIView {
         idTextField.layout.leading(constant: margin * 3).trailing(constant: -(margin * 3)).bottom(equalTo: pwTextField.topAnchor, constant: -margin)
         idTextField.heightAnchor.constraint(equalToConstant: height).isActive = true
         
+    }
+    
+    //로그인 버튼 클릭 이벤트
+    @objc private func didTapLoginButton() {
+        guard let id = idTextField.text, let pw = pwTextField.text else { return }
+        delegate?.loginAction(id: id, pw: pw)
     }
     
     
