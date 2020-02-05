@@ -29,13 +29,17 @@ class GetTogetherCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commentLable.textColor = .black
         commentLable.font = UIFont.systemFont(ofSize: 24)
+        
         timeLabel = self.labelStyle()
         placeTitleLabel = self.labelStyle()
         membersLabel = self.labelStyle()
+        
         dateBg.backgroundColor = #colorLiteral(red: 0.9465712905, green: 0.9436327815, blue: 0.9488766789, alpha: 1)
         monthLabel = self.dateLabelStyle()
+        
         dayLabel.textColor = .darkGray
         dayLabel.font = UIFont.systemFont(ofSize: 32)
+        
         weekDayLabel = self.dateLabelStyle()
         self.setupConstraint()
     }

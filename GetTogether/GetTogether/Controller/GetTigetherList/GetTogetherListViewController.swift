@@ -18,6 +18,7 @@ class GetTogetherListViewController: UIViewController {
         dump(promisses)
         tableView.dataSource = self
         tableView.register(GetTogetherCell.self, forCellReuseIdentifier: "PromiseCell")
+        tableView.delegate = self
     }
     private func setupConstraint() {
         let guide = self.view.safeAreaLayoutGuide
@@ -52,5 +53,16 @@ extension GetTogetherListViewController: UITableViewDataSource {
         cell.dayLabelInfo(day: "\(indexPath.row)")
         cell.weekDayLabelInfo(weekDay: "화")
         return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension GetTogetherListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = promisses[indexPath.row]
+        let getTogetherDetailVC = GetTogetherDetailViewController()
+        getTogetherDetailVC.commentLabel.text = "\(data.comment)"
+        getTogetherDetailVC.memberLabel.text = "\(data.members)"
+        self.navigationController?.pushViewController(getTogetherDetailVC, animated: true)
     }
 }
