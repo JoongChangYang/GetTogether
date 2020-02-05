@@ -1,22 +1,11 @@
-//
-//  GetTgetherListViewController.swift
-//  GetTogether
-//
-//  Created by Hailey Lee on 2020/02/03.
-//  Copyright © 2020 didwndckd. All rights reserved.
-//
 
 import UIKit
-
 class GetTogetherListViewController: UIViewController {
-
     let tableView = UITableView()
     var promisses = [Promise]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        
     }
     private func setUI() {
         self.view.backgroundColor = .white
@@ -27,14 +16,11 @@ class GetTogetherListViewController: UIViewController {
         setupConstraint()
         setData()
         dump(promisses)
-        
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PromiseCell")
+        tableView.register(GetTogetherCell.self, forCellReuseIdentifier: "PromiseCell")
     }
-
     private func setupConstraint() {
         let guide = self.view.safeAreaLayoutGuide
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: guide.topAnchor,constant: 0),
@@ -43,28 +29,28 @@ class GetTogetherListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: 0)
         ])
     }
-    
     func setData() {
         for i in 0...20 {
-            let promiss = Promise(date: "date\(i)", members: "memebers\(i)", placeTitle: "placeTitle\(i)", placeLatitude: Double(i), placeLongitude: Double(i), comment: "comment\(i)")
+            let promiss = Promise(date: Date(), members: "memebers \(i)", placeTitle: "placeTitle \(i)", placeLatitude: Double(i), placeLongitude: Double(i), comment: "comment \(i)")
             promisses.append(promiss)
         }
     }
-
 }
-
 // MARK: - UITableViewDataSource
 extension GetTogetherListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return promisses.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PromiseCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PromiseCell", for: indexPath) as! GetTogetherCell
         let data = promisses[indexPath.row]
-        cell.textLabel?.text = data.placeTitle
+        cell.commentLabelInfo(comment: data.comment)
+        cell.timeLabelInfo(time: "time \(indexPath.row)")
+        cell.placeTitleLabelInfo(placeTitle: data.placeTitle)
+        cell.membersLabelInfo(members: data.members)
+        cell.monthLabelInfo(month: "\(indexPath.row)월")
+        cell.dayLabelInfo(day: "\(indexPath.row)")
+        cell.weekDayLabelInfo(weekDay: "화")
         return cell
     }
-    
-    
 }
