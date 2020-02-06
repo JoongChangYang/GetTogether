@@ -166,7 +166,7 @@ extension SignUpViewController: signUpViewDelegate {
     
     // 주소검색 뷰 띄움
     func presentSerchMapViewController() {
-        let mapSearchVC = MapSearchViewController(queryType: .address)
+        let mapSearchVC = MapSearchViewController()
         mapSearchVC.delegate = self
         navigationController?.pushViewController(mapSearchVC, animated: true)
     }

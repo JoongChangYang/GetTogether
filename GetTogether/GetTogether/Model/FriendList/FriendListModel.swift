@@ -10,5 +10,10 @@ import Foundation
 
 class FriendListModel{
 
+    private let className = "FriendListViewController"
+    
+    func makeNotificationKey(notificationName: NotificationName) -> String {
+        className + notificationName.rawValue
+    }
 
 }

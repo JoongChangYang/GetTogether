@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3128F46B23EBF6E900C0A42A /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128F46A23EBF6E900C0A42A /* FriendListCell.swift */; };
+		3128F46D23EC3E9000C0A42A /* MapSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128F46C23EC3E9000C0A42A /* MapSearchModel.swift */; };
+		3128F46F23EC5DF100C0A42A /* SearchMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128F46E23EC5DF100C0A42A /* SearchMapCell.swift */; };
+		3128F47223EC720900C0A42A /* AnnotationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128F47123EC720900C0A42A /* AnnotationInfoView.swift */; };
+		3128F47423EC799D00C0A42A /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128F47323EC799D00C0A42A /* CustomAnnotationView.swift */; };
 		3172300B23E84765003DBE32 /* GetTogetherListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172300A23E84765003DBE32 /* GetTogetherListViewController.swift */; };
 		3172300F23E9C66B003DBE32 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172300E23E9C66B003DBE32 /* Notification.swift */; };
 		3172301323EA6B75003DBE32 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172301223EA6B75003DBE32 /* LoginModel.swift */; };
@@ -76,6 +81,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3128F46A23EBF6E900C0A42A /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
+		3128F46C23EC3E9000C0A42A /* MapSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchModel.swift; sourceTree = "<group>"; };
+		3128F46E23EC5DF100C0A42A /* SearchMapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMapCell.swift; sourceTree = "<group>"; };
+		3128F47123EC720900C0A42A /* AnnotationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationInfoView.swift; sourceTree = "<group>"; };
+		3128F47323EC799D00C0A42A /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		3172300A23E84765003DBE32 /* GetTogetherListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTogetherListViewController.swift; sourceTree = "<group>"; };
 		3172300E23E9C66B003DBE32 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		3172301223EA6B75003DBE32 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
@@ -173,6 +183,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3128F47023EC71D900C0A42A /* AnnotationInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				3128F47123EC720900C0A42A /* AnnotationInfoView.swift */,
+				3128F47323EC799D00C0A42A /* CustomAnnotationView.swift */,
+			);
+			path = AnnotationInfoView;
+			sourceTree = "<group>";
+		};
 		3172301423EA7B71003DBE32 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +205,6 @@
 			children = (
 				31BC25DF23E5E70C00C971AB /* SignUpViewController.swift */,
 				31BC25D723E5D78700C971AB /* LoginViewController.swift */,
-				31DA961D23E7B038008FCEAF /* MapSearchViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -205,7 +223,6 @@
 			children = (
 				31BC25E123E5E75500C971AB /* SignUpView.swift */,
 				31BC25D923E5D7FD00C971AB /* LoginView.swift */,
-				31DA961F23E7B129008FCEAF /* MapSearchView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -214,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				3172301723EA7C16003DBE32 /* MainViewController.swift */,
+				31DA961D23E7B038008FCEAF /* MapSearchViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -221,6 +239,7 @@
 		3172302D23EAA353003DBE32 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				31DA961F23E7B129008FCEAF /* MapSearchView.swift */,
 				3172301B23EA7C3C003DBE32 /* MainView.swift */,
 			);
 			path = Main;
@@ -230,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				3172301923EA7C28003DBE32 /* MainModel.swift */,
+				3128F46C23EC3E9000C0A42A /* MapSearchModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -382,6 +402,8 @@
 			isa = PBXGroup;
 			children = (
 				31B7291023EACF1000E4864D /* GetTogetherCellTableViewCell.swift */,
+				3128F46A23EBF6E900C0A42A /* FriendListCell.swift */,
+				3128F46E23EC5DF100C0A42A /* SearchMapCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -426,6 +448,7 @@
 		31BC25D423E5D70700C971AB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3128F47023EC71D900C0A42A /* AnnotationInfoView */,
 				3172303423EAA3CB003DBE32 /* Setup */,
 				3172303123EAA38F003DBE32 /* FriendList */,
 				3172302D23EAA353003DBE32 /* Main */,
@@ -556,9 +579,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3128F46F23EC5DF100C0A42A /* SearchMapCell.swift in Sources */,
 				3172301E23EA7C58003DBE32 /* FriendListViewController.swift in Sources */,
 				31B7290E23EAA54F00E4864D /* AddFriendModel.swift in Sources */,
 				31BC25E423E6031A00C971AB /* Api.swift in Sources */,
+				3128F47223EC720900C0A42A /* AnnotationInfoView.swift in Sources */,
+				3128F46B23EBF6E900C0A42A /* FriendListCell.swift in Sources */,
 				3172301C23EA7C3C003DBE32 /* MainView.swift in Sources */,
 				31BC25E623E6108400C971AB /* SignupModel.swift in Sources */,
 				3172302823EA9502003DBE32 /* SetupView.swift in Sources */,
@@ -587,6 +613,8 @@
 				31BC25C323E5D6C900C971AB /* SceneDelegate.swift in Sources */,
 				31DA962023E7B129008FCEAF /* MapSearchView.swift in Sources */,
 				3172300F23E9C66B003DBE32 /* Notification.swift in Sources */,
+				3128F47423EC799D00C0A42A /* CustomAnnotationView.swift in Sources */,
+				3128F46D23EC3E9000C0A42A /* MapSearchModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

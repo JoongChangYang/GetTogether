@@ -21,7 +21,6 @@ class LoginView: UIView {
     private let loginButton = UIButton(type: .system)
     private let signUpButton = UIButton(type: .system)
     
-    
     weak var delegate: LoginViewDelegate?
 
    override init(frame: CGRect) {

@@ -16,4 +16,5 @@ enum NotificationName: String {
     case login
     case searchFriend
     case addFriend
+    case getFriendList
 }

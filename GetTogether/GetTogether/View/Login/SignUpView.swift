@@ -63,6 +63,8 @@ class SignUpView: UIView {
     
     private let scrollView = UIScrollView()
     
+    private let tableView = UITableView()
+    
     private var scrollViewConstraint: NSLayoutConstraint?
     
     weak var delegate: signUpViewDelegate?
