@@ -61,8 +61,12 @@ extension GetTogetherListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = promisses[indexPath.row]
         let getTogetherDetailVC = GetTogetherDetailViewController()
-        getTogetherDetailVC.commentLabel.text = "\(data.comment)"
+        getTogetherDetailVC.placeTitleLabel.text = "\(data.placeTitle)"
+        getTogetherDetailVC.placeAdressLabel.text = "\(data.placeTitle) 서울특별시 강남구 삼성로 300길 28-1"
+        getTogetherDetailVC.dayLabel.text = "\(data.placeLatitude)월 \(data.placeLatitude)일 \(data.placeLatitude)요일"
+        getTogetherDetailVC.timeLabel.text = "오후 \(data.placeLatitude)시 \(data.placeLatitude)분"
         getTogetherDetailVC.memberLabel.text = "\(data.members)"
+        getTogetherDetailVC.commentLabel.text = "\(data.comment)"
         self.navigationController?.pushViewController(getTogetherDetailVC, animated: true)
     }
 }
