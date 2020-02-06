@@ -25,6 +25,7 @@
 		3172302423EA94B3003DBE32 /* SetUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172302323EA94B3003DBE32 /* SetUpModel.swift */; };
 		3172302623EA94EE003DBE32 /* SetUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172302523EA94EE003DBE32 /* SetUpViewController.swift */; };
 		3172302823EA9502003DBE32 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172302723EA9502003DBE32 /* SetupView.swift */; };
+		318000C223EC9D6C00F6602E /* GetTogetherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318000C123EC9D6C00F6602E /* GetTogetherDetailViewController.swift */; };
 		31B5246C23E7C94700364E08 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B5244723E7C94600364E08 /* map_pinup_custom@3x.png */; };
 		31B5246D23E7C94700364E08 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B5244823E7C94600364E08 /* map_pin_custom.png */; };
 		31B5246E23E7C94700364E08 /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B5244923E7C94600364E08 /* shadow_balloon.png */; };
@@ -99,6 +100,7 @@
 		3172302323EA94B3003DBE32 /* SetUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpModel.swift; sourceTree = "<group>"; };
 		3172302523EA94EE003DBE32 /* SetUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpViewController.swift; sourceTree = "<group>"; };
 		3172302723EA9502003DBE32 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		318000C123EC9D6C00F6602E /* GetTogetherDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTogetherDetailViewController.swift; sourceTree = "<group>"; };
 		31B5244723E7C94600364E08 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		31B5244823E7C94600364E08 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
 		31B5244923E7C94600364E08 /* shadow_balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_balloon.png; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 		3172303523EAA3DE003DBE32 /* GetTigetherList */ = {
 			isa = PBXGroup;
 			children = (
+				318000C123EC9D6C00F6602E /* GetTogetherDetailViewController.swift */,
 				3172300A23E84765003DBE32 /* GetTogetherListViewController.swift */,
 			);
 			path = GetTigetherList;
@@ -595,6 +598,7 @@
 				31B7290A23EAA50500E4864D /* AddFriendViewController.swift in Sources */,
 				31BC25E023E5E70C00C971AB /* SignUpViewController.swift in Sources */,
 				3172301823EA7C16003DBE32 /* MainViewController.swift in Sources */,
+				318000C223EC9D6C00F6602E /* GetTogetherDetailViewController.swift in Sources */,
 				31B7290C23EAA53200E4864D /* AddFriendView.swift in Sources */,
 				31BC25D823E5D78700C971AB /* LoginViewController.swift in Sources */,
 				31BC25DE23E5E23700C971AB /* Color.swift in Sources */,
