@@ -179,7 +179,7 @@ extension SignUpViewController: MapSearchViewControllerDelegate {
     // 지도의 핀 눌렀을 때 signUpView의 주소 레이블에 텍스트 표시, model의 coordinate 값 할당
     func didTapOkButton(coordinate: Coordinate, addressName: String) {
         self.model.coordinate = coordinate
-        signUpView.setAdressName(addressName: addressName)
+//*** 여기 주석 처리        signUpView.setAdressName(addressName: addressName)
     }
     
     

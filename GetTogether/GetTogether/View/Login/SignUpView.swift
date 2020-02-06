@@ -57,7 +57,9 @@ class SignUpView: UIView {
     
     private let searchAddressButton = UIButton(type: .system)
     
-    private let addressNameLabel = UILabel()
+//    private let addressNameLabel = UILabel()
+    
+    private let addressTextField = UITextField()
     
     private let signUpButton = UIButton(type: .system)
     
@@ -91,7 +93,7 @@ class SignUpView: UIView {
     private func setupUI() {
         backgroundColor = .white
         addSubview(scrollView)
-        scrollView.addSubViews([idTextField, idCheckButton, nickNameTextField, pwTextField, pwCheckTextField, addressNameLabel, searchAddressButton, signUpButton])
+        scrollView.addSubViews([idTextField, idCheckButton, nickNameTextField, pwTextField, pwCheckTextField, addressTextField, searchAddressButton, signUpButton])
         
         
         
@@ -100,11 +102,12 @@ class SignUpView: UIView {
         idTextField.tag = 0
         idTextField.delegate = self
         
-        idCheckButton.setTitle("중복확인", for: .normal)
+        idCheckButton.setTitle("중복 확인", for: .normal)
         idCheckButton.backgroundColor = ThemeColor.basic
         idCheckButton.tintColor = .white
         idCheckButton.layer.cornerRadius = 4
         idCheckButton.addTarget(self, action: #selector(didTapIDCheckButton), for: .touchUpInside)
+        idCheckButton.shadow()
         
         nickNameTextField.placeholder = "닉네임(2 ~ 12자)"
         nickNameTextField.borderStyle = .roundedRect
@@ -115,30 +118,37 @@ class SignUpView: UIView {
         pwTextField.borderStyle = .roundedRect
         pwTextField.delegate = self
         pwTextField.tag = 2
-//        pwTextField.isSecureTextEntry = true
+        pwTextField.isSecureTextEntry = true
         pwTextField.textContentType = .password
         
         pwCheckTextField.placeholder = "비밀번호 확인"
         pwCheckTextField.borderStyle = .roundedRect
         pwCheckTextField.delegate = self
         pwCheckTextField.tag = 3
-//        pwCheckTextField.isSecureTextEntry = true
+        pwCheckTextField.isSecureTextEntry = true
         pwCheckTextField.textContentType = .password
+        
+        addressTextField.placeholder = "ex. 서울특별시 강남구 삼성동 159"
+        addressTextField.borderStyle = .roundedRect
+        addressTextField.tag = 0
+        addressTextField.delegate = self
         
         searchAddressButton.setTitle("주소 검색", for: .normal)
         searchAddressButton.backgroundColor = ThemeColor.basic
         searchAddressButton.layer.cornerRadius = 4
         searchAddressButton.tintColor = .white
         searchAddressButton.addTarget(self, action: #selector(didTapSearchAddressButton), for: .touchUpInside)
+        searchAddressButton.shadow()
         
-        addressNameLabel.text = "주소를 등록해 주세요."
-        addressNameLabel.textColor = ThemeColor.warning
+//        addressNameLabel.text = "주소를 등록해 주세요."
+//        addressNameLabel.textColor = ThemeColor.warning
         
         signUpButton.setTitle("회원가입", for: .normal)
-        signUpButton.backgroundColor = ThemeColor.basic
+        signUpButton.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.4745098039, blue: 0.8784313725, alpha: 1)
         signUpButton.tintColor = .white
         signUpButton.layer.cornerRadius = 4
         signUpButton.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
+        signUpButton.shadow()
         
         setupConstraint()
 //        testSetup()
@@ -164,7 +174,7 @@ class SignUpView: UIView {
         
         idCheckButton.layout
             .top(equalTo: scrollView.topAnchor, constant: marginY * 12)
-            .leading(equalTo: idTextField.trailingAnchor, constant: 2)
+            .leading(equalTo: idTextField.trailingAnchor, constant: 10)
             .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         idCheckButton.heightAnchor.constraint(equalToConstant: height).isActive = true
         
@@ -189,22 +199,28 @@ class SignUpView: UIView {
         pwCheckTextField.heightAnchor.constraint(equalToConstant: height).isActive = true
         pwCheckTextField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
         
-        addressNameLabel.layout
-        .top(equalTo: pwCheckTextField.bottomAnchor, constant: marginY)
-        .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
-        .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
-        addressNameLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
-        addressNameLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
+//        addressNameLabel.layout
+//        .top(equalTo: pwCheckTextField.bottomAnchor, constant: marginY)
+//        .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+//        .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
+//        addressNameLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
+//        addressNameLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
         
+ 
+         addressTextField.layout
+            .top(equalTo: pwCheckTextField.bottomAnchor, constant: marginY)
+             .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+         addressTextField.heightAnchor.constraint(equalToConstant: height).isActive = true
+         addressTextField.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.65).isActive = true
+ 
         searchAddressButton.layout
-            .top(equalTo: addressNameLabel.bottomAnchor, constant: marginY)
-            .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
+            .top(equalTo: pwCheckTextField.bottomAnchor, constant: marginY)
+            .leading(equalTo: addressTextField.trailingAnchor, constant: 10)
             .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         searchAddressButton.heightAnchor.constraint(equalToConstant: height).isActive = true
-        searchAddressButton.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(marginX * 2)).isActive = true
 
         signUpButton.layout
-            .top(equalTo: searchAddressButton.bottomAnchor, constant: marginY)
+            .top(equalTo: searchAddressButton.bottomAnchor, constant: marginY * 3)
             .leading(equalTo: scrollView.leadingAnchor, constant: marginX)
             .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
             .bottom(equalTo: scrollView.bottomAnchor)
@@ -216,10 +232,10 @@ class SignUpView: UIView {
         
     }
     
-    func setAdressName(addressName: String) {
-        addressNameLabel.text = addressName
-        addressNameLabel.textColor = ThemeColor.affirmation
-    }
+//    func setAdressName(addressName: String) {
+//        addressNameLabel.text = addressName
+//        addressNameLabel.textColor = ThemeColor.affirmation
+//    }
     
     
     @objc func didTapSearchAddressButton() {
