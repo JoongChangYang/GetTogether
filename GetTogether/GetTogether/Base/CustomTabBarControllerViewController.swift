@@ -14,7 +14,7 @@ class CustomTabBarController: UITabBarController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        let mainVC = MainViewController()
+        let mainVC = UINavigationController(rootViewController: MainViewController())
         mainVC.tabBarItem = UITabBarItem(
             title: "",
             image: UIImage(systemName: "location"),

@@ -14,6 +14,7 @@ import MapKit
 class MapSearchView: UIView {
     
      let mapView = MKMapView()
+     var tableViewBottomConstraint: NSLayoutConstraint?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,9 +28,16 @@ class MapSearchView: UIView {
     private func setupUI() {
         addSubViews([mapView])
         backgroundColor = .white
-        mapView.layout.top().leading().trailing().bottom()
+        setupConstraint()
     }
     
+    private func setupConstraint() {
+        
+        mapView.layout.top().leading().trailing().bottom()
+        
+        
+        
+    }
     
     func addAnnotation(addressName: String, coordinate: Coordinate) {
         
@@ -47,6 +55,15 @@ class MapSearchView: UIView {
         let spen = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
         let region = MKCoordinateRegion(center: coordinate, span: spen)
         mapView.setRegion(region, animated: true)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1, animations: {
+
+            self.tableViewBottomConstraint?.constant = 0
+            self.layoutIfNeeded()
+        })
     }
     
 }

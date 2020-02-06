@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
     
     //로그인 성공 이벤트
     private func successLogin(id: String) {
-
+        print(id)
         let customTabBarVC = CustomTabBarController()
         guard let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
         delegate.window?.rootViewController = customTabBarVC

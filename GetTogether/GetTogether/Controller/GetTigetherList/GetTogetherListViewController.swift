@@ -15,7 +15,7 @@ class GetTogetherListViewController: UIViewController {
         }
         setupConstraint()
         setData()
-        dump(promisses)
+//        dump(promisses)
         tableView.dataSource = self
         tableView.register(GetTogetherCell.self, forCellReuseIdentifier: "PromiseCell")
         tableView.delegate = self

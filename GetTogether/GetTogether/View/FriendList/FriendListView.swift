@@ -24,7 +24,7 @@ class FriendListView: UIView {
     private func setupUI() {
         backgroundColor = .white
         addSubview(tableView)
-        
+        tableView.register(FriendListCell.self, forCellReuseIdentifier: "FriendListCell")
         setupConstraint()
     }
     
