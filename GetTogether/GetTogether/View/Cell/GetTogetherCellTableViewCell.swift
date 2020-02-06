@@ -29,13 +29,17 @@ class GetTogetherCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commentLable.textColor = .black
         commentLable.font = UIFont.systemFont(ofSize: 24)
+        
         timeLabel = self.labelStyle()
         placeTitleLabel = self.labelStyle()
         membersLabel = self.labelStyle()
+        
         dateBg.backgroundColor = #colorLiteral(red: 0.9465712905, green: 0.9436327815, blue: 0.9488766789, alpha: 1)
         monthLabel = self.dateLabelStyle()
+        
         dayLabel.textColor = .darkGray
         dayLabel.font = UIFont.systemFont(ofSize: 32)
+        
         weekDayLabel = self.dateLabelStyle()
         self.setupConstraint()
     }
@@ -44,11 +48,12 @@ class GetTogetherCell: UITableViewCell {
             contentView.addSubview($0)
         }
         let margin: CGFloat = 18
+        let padding: CGFloat = 4
         dateBg.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             dateBg.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 0),
             dateBg.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
-            dateBg.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 1),
+            dateBg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             dateBg.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: margin)
         ])
         monthLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -72,21 +77,23 @@ class GetTogetherCell: UITableViewCell {
             commentLable.leadingAnchor.constraint(equalTo: dateBg.trailingAnchor, constant: margin),
             commentLable.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin)
         ])
-        membersLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            membersLabel.topAnchor.constraint(equalTo: commentLable.bottomAnchor,constant: 0),
-            membersLabel.leadingAnchor.constraint(equalTo: dateBg.trailingAnchor, constant: margin),
-            membersLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin),
-        ])
+//        membersLabel.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            membersLabel.topAnchor.constraint(equalTo: commentLable.bottomAnchor,constant: padding),
+//            membersLabel.leadingAnchor.constraint(equalTo: dateBg.trailingAnchor, constant: margin),
+//            membersLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin),
+//        ])
+        
      timeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-         timeLabel.topAnchor.constraint(equalTo: membersLabel.bottomAnchor,constant: 0),
+         timeLabel.topAnchor.constraint(equalTo: commentLable.bottomAnchor,constant: padding),
          timeLabel.leadingAnchor.constraint(equalTo: dateBg.trailingAnchor, constant: margin),
          timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin),
         ])
+        
         placeTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            placeTitleLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor,constant: 0),
+            placeTitleLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor,constant: padding),
             placeTitleLabel.leadingAnchor.constraint(equalTo: dateBg.trailingAnchor, constant: margin),
             placeTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin),
             placeTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -margin)
