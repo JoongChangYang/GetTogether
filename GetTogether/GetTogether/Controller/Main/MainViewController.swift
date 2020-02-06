@@ -7,26 +7,59 @@
 //
 
 import UIKit
+import MapKit
 
 class MainViewController: MapSearchViewController {
     
-    
+    private let notificationName = "MainViewController"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addObservers()
         
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        FriendList.shared.requestOfGetFriendList(notificationName: notificationName)
     }
-    */
+
+    @objc func getFriendList(_ notification: Notification) {
+        
+        guard let data = notification.userInfo?[notificationName] as? [String: Any] else { return }
+        guard let json = data["result"] as? [[String: String]] else { return }
+        var tempUserList: [User] = []
+        for userData in json {
+            guard
+                let id = userData["id"],
+                let nickName = userData["nickName"],
+                let address = userData["address"],
+                let coordinateJson = address.data(using: .utf8),
+                let coordinate = try? JSONDecoder().decode(Coordinate.self, from: coordinateJson)
+                else { continue }
+            let user = User(id: id, nickName: nickName, address: coordinate)
+            
+            tempUserList.append(user)
+        }
+        FriendList.shared.list = tempUserList.sorted(by: { $0.id < $1.id })
+        
+    }
+    
+    private func addObservers() {
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(getFriendList(_:)),
+            name: NSNotification.Name(notificationName),
+            object: nil)
+    }
 
 }
+
+//MapDelgate
+//extension MainViewController {
+//    override func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+//
+//
+//    }
+//}

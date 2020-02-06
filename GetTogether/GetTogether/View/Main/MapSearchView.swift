@@ -28,7 +28,6 @@ class MapSearchView: UIView {
     private func setupUI() {
         addSubViews([mapView])
         backgroundColor = .white
-        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: "CustomPin")
         setupConstraint()
     }
     
