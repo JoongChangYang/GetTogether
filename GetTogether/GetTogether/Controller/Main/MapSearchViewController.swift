@@ -16,7 +16,8 @@ protocol MapSearchViewControllerDelegate: class {
 
 class MapSearchViewController: UIViewController {
     
-    private var annotations: [String : UIView] = [:]
+//    private var annotations: [String : (view: UIView, constrain: NSLayoutConstraint)] = [:]
+    private let placeInfoView = PlaceInfoView()
     private let mapSearchView = MapSearchView()
     private let searchBar = UISearchController()
     private let api = Api(apiProtocol: .http, apiUrl: .signUp, port: 80)
@@ -24,7 +25,7 @@ class MapSearchViewController: UIViewController {
     weak var delegate: MapSearchViewControllerDelegate?
     private var coordinate: Coordinate?
     private var addressName: String?
-    private var model = MapSearchModel()
+    var model = MapSearchModel()
    
     
     override func viewDidLoad() {
@@ -35,6 +36,8 @@ class MapSearchViewController: UIViewController {
         addNotificationObservers()
         
     }
+    
+    
     
     private func addNotificationObservers() {
         NotificationCenter.default.addObserver(
@@ -92,9 +95,20 @@ class MapSearchViewController: UIViewController {
     }
     
     private func setupUI() {
+        let margin: CGFloat = 40
+        
         view.addSubview(mapSearchView)
+        view.addSubview(placeInfoView)
         mapSearchView.layout.top().leading().trailing().bottom()
         mapSearchView.mapView.delegate = self
+        
+        placeInfoView
+            .layout
+            .top(constant: margin)
+            .leading(constant: margin)
+            .trailing(constant: -margin)
+            .bottom(constant: -margin)
+        placeInfoView.delegate = self
         
         
     }
@@ -128,14 +142,14 @@ class MapSearchViewController: UIViewController {
         
         let latitudeSize = latitudeFirst - latitudeLast
         let longitudeSize = longitudeFirst - longitueLast
-        print(latitudeSize, longitudeSize)
+//        print(latitudeSize, longitudeSize)
         
         let center = CLLocationCoordinate2D(latitude: latitude , longitude: longitude)
         let span = MKCoordinateSpan(latitudeDelta: latitudeSize, longitudeDelta: longitudeSize)
         let region = MKCoordinateRegion(center: center, span: span)
         mapSearchView.mapView.setRegion(region, animated: true)
         mapSearchView.mapView.removeAnnotations(mapSearchView.mapView.annotations)
-        annotations.removeAll()
+//        annotations.removeAll()
         model.placeList.forEach({
             
             if let roadAdress = $0.roadAddress {
@@ -147,7 +161,6 @@ class MapSearchViewController: UIViewController {
                 annotation.title = $0.placeName
                 annotation.subtitle = roadAdress
                 annotation.coordinate = coordinate
-                annotations[roadAdress] = AnnotationInfoView()
                 mapSearchView.mapView.addAnnotation(annotation)
             }
             
@@ -160,6 +173,28 @@ class MapSearchViewController: UIViewController {
     
     
 
+}
+
+extension MapSearchViewController: PlaceInfoViewDelegate {
+    func close() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.placeInfoView.transform = .init(scaleX: 0, y: 0)
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            self.placeInfoView.isHidden = true
+            
+        })
+        self.mapSearchView.mapView.selectedAnnotations.removeAll()
+        
+    }
+    
+    
+    func makePromise() {
+        let makePromissVC = MakePromiseViewController()
+        navigationController?.pushViewController(makePromissVC, animated: true)
+    }
+    
+    
 }
 
 
@@ -200,38 +235,30 @@ extension MapSearchViewController: UITableViewDelegate {
 extension MapSearchViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//        guard let address = addressName else { return }
-//        disPlayAlert(title: "현재 주소로 등록 하시겠습니까?", message: "주소: \(address)")
+        guard
+            let annotation = view.annotation,
+            let optionalSubTitle = annotation.subtitle,
+            let subTitle = optionalSubTitle
+            else { return }
+        
+        guard let index = model.placeList.firstIndex(where: {
+            $0.roadAddress == subTitle
+        }) else { return }
+        
+        let place = model.placeList[index]
+        placeInfoView.contfigure(placeName: place.placeName, roadAddress: place.roadAddress, adddressName: place.addressName, placeUrl: place.placeUrl)
+        
+        placeInfoView.isHidden = false
+        UIView.animate(withDuration: 0.2, animations: {
+            self.placeInfoView.transform = .identity
+            self.placeInfoView.layoutIfNeeded()
+        })
+        
         
     }
     
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//
-//        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "CustomPin", for: annotation) as! CustomAnnotationView
-//        if let optionalTitle = annotation.title, let title = optionalTitle {
-//            annotationView.configure(title: title)
-//        }
-//
-//        return annotationView
-//
-//
-//    }
     
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-
-        for view in views {
-            let infoView = AnnotationInfoView()
-            view.addSubview(infoView)
-            infoView.translatesAutoresizingMaskIntoConstraints = false
-            infoView.bottomAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            infoView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            infoView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 0.5).isActive =  true
-            infoView.widthAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 0.5).isActive = true
-
-        }
-
-
-    }
+    
     
     
     
