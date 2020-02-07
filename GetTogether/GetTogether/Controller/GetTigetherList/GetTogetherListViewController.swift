@@ -69,4 +69,24 @@ extension GetTogetherListViewController: UITableViewDelegate {
         getTogetherDetailVC.commentLabel.text = "\(data.comment)"
         self.navigationController?.pushViewController(getTogetherDetailVC, animated: true)
     }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if (editingStyle == .delete) {
+                
+                alert(indexPath: indexPath)
+            }
+        }
+        
+        func alert(indexPath: IndexPath) {
+            let controller = UIAlertController(title: "경고", message: "약속이 취소 되었나요?\n약속 데이터를 삭제할까요?", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "삭제", style: .destructive) { (_) in
+                self.promisses.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+    //            self.friendListView.tableView.reloadData()
+            }
+            let cancel = UIAlertAction(title: "취소", style: .cancel)
+            
+            controller.addAction(ok)
+            controller.addAction(cancel)
+            present(controller, animated: true)
+        }
 }

@@ -46,25 +46,26 @@ class FriendListCell: UITableViewCell {
         contentView.addSubViews([userImageView, nickNameLabel, idLabel])
         
         userImageView.tintColor = .white
-        userImageView.contentMode = .scaleToFill
+        userImageView.contentMode = .scaleAspectFit
         userImageView.backgroundColor = ThemeColor.basic
         
         
         nickNameLabel.font = .boldSystemFont(ofSize: 20)
         
         idLabel.font = .systemFont(ofSize: 12)
+        idLabel.textColor = .darkGray
         
         setupConstraint()
     }
     
     private func setupConstraint() {
         
-        let margin: CGFloat = 8
+        let margin: CGFloat = 10
         
         userImageView.translatesAutoresizingMaskIntoConstraints = false
-        userImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: margin).isActive = true
-        userImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: margin / 2).isActive = true
-        userImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(margin / 2)).isActive = true
+        userImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: margin * 2).isActive = true
+        userImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: margin).isActive = true
+        userImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -margin).isActive = true
         userImageView.widthAnchor.constraint(equalTo: userImageView.heightAnchor).isActive = true
         
         nickNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +74,7 @@ class FriendListCell: UITableViewCell {
         
         idLabel.translatesAutoresizingMaskIntoConstraints = false
         idLabel.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: margin * 2).isActive = true
-        idLabel.topAnchor.constraint(equalTo: nickNameLabel.bottomAnchor).isActive = true
+        idLabel.topAnchor.constraint(equalTo: nickNameLabel.bottomAnchor, constant: margin / 2).isActive = true
         idLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(margin * 1.5)).isActive = true
         
         

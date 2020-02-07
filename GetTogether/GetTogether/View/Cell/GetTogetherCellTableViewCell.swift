@@ -34,7 +34,7 @@ class GetTogetherCell: UITableViewCell {
         placeTitleLabel = self.labelStyle()
         membersLabel = self.labelStyle()
         
-        dateBg.backgroundColor = #colorLiteral(red: 0.9465712905, green: 0.9436327815, blue: 0.9488766789, alpha: 1)
+        dateBg.backgroundColor = #colorLiteral(red: 0.9044035077, green: 0.9433285594, blue: 0.9818262458, alpha: 0.6)
         monthLabel = self.dateLabelStyle()
         
         dayLabel.textColor = .darkGray
@@ -54,7 +54,7 @@ class GetTogetherCell: UITableViewCell {
             dateBg.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 0),
             dateBg.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
             dateBg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            dateBg.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: margin)
+            dateBg.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
         ])
         monthLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

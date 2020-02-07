@@ -51,12 +51,14 @@ class LoginView: UIView {
         
         loginButton.backgroundColor = ThemeColor.basic
         loginButton.setTitle("로그인", for: .normal)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         loginButton.tintColor = .white
         loginButton.layer.cornerRadius = 4
         loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
         loginButton.shadow()
         
         signUpButton.setTitle("회원가입", for: .normal)
+        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         signUpButton.addTarget(self, action: #selector(didTapSignUpButton(_:)), for: .touchUpInside)
         
         logoImageView.image = UIImage(named: "Logo")
@@ -93,7 +95,7 @@ class LoginView: UIView {
         
         signUpButton.layout.centerX().centerY(equalTo: guide.centerYAnchor, constant: 120)
         
-        loginButton.layout.leading(constant: margin * 3).trailing(constant: -(margin * 3)).bottom(equalTo: signUpButton.topAnchor, constant: -margin)
+        loginButton.layout.leading(constant: margin * 3).trailing(constant: -(margin * 3)).bottom(equalTo: signUpButton.topAnchor, constant: -(margin * 2))
         loginButton.heightAnchor.constraint(equalToConstant: height).isActive = true
         
         pwTextField.layout.leading(constant: margin * 3).trailing(constant: -(margin * 3)).bottom(equalTo: loginButton.topAnchor, constant:  -margin * 3)

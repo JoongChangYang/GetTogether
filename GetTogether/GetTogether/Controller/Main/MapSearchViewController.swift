@@ -90,7 +90,9 @@ class MapSearchViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .white
         navigationItem.searchController = searchBar
         navigationItem.hidesSearchBarWhenScrolling = false
+        searchBar.searchBar.placeholder = "ex.강남역, 경리단길, 망원로"
         searchBar.searchBar.delegate = self
+        
         
     }
     
@@ -207,6 +209,8 @@ extension MapSearchViewController: PlaceInfoViewDelegate {
 
 
 extension MapSearchViewController: UISearchBarDelegate {
+    
+    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text else { return }
