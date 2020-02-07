@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol MakePromiseViewDelegate: class {
+    func makePromise(comment: String, date: Date)
+}
+
 class MakePromiseView: UIView {
+    
+    weak var delegate: MakePromiseViewDelegate?
     
     private let scrollView = UIScrollView()
     
@@ -58,13 +64,19 @@ class MakePromiseView: UIView {
         makePromiseButton.backgroundColor = ThemeColor.basic
         makePromiseButton.tintColor = .white
         makePromiseButton.layer.cornerRadius = 16
+        makePromiseButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
         tableView.register(FriendListCell.self, forCellReuseIdentifier: "MakePromise")
-        tableView.isMultipleTouchEnabled = true
+        tableView.allowsMultipleSelection = true
         datePicker.minimumDate = Date()
         
         setupConstraint()
         
+    }
+    
+    @objc func didTapButton() {
+        let comment = commentTextField.text ?? ""
+        delegate?.makePromise(comment: comment, date: datePicker.date)
     }
     
     private func setupConstraint() {

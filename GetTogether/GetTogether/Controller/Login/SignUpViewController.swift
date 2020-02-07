@@ -33,6 +33,9 @@ class SignUpViewController: UIViewController {
         signUpView.delegate = self
         
         
+        signUpView.tableView.delegate = self
+        signUpView.tableView.dataSource = self
+        
         signUpView.layout.leading().trailing().top()
         
         sginUpViewBottomConstraint = signUpView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -61,7 +64,11 @@ class SignUpViewController: UIViewController {
     }
     
     private func addNotification() {
-        
+        NotificationCenter.default.addObserver( // 카카오 검색
+        self,
+        selector: #selector(getSearchValue(_:)),
+        name: NSNotification.Name(model.makeNotificationName(notificationName: .searchKakao)),
+        object: nil)
         
         NotificationCenter.default.addObserver( // 아이디 체크 옵저버
             self,
@@ -74,6 +81,50 @@ class SignUpViewController: UIViewController {
             selector: #selector(signUpResponse(_:)),
             name: NSNotification.Name(model.makeNotificationName(notificationName: .signUp)),
             object: nil)
+    }
+    
+    @objc func getSearchValue(_ notification: Notification) {
+        guard let json = notification.userInfo?[model.makeNotificationName(notificationName: .searchKakao)] as? [String: Any] else { return }
+        guard let documents = json["documents"] as? [[String: Any?]] else { return print(#function, #line, "Error")}
+        
+        guard let places = documents as? [[String: String]] else { return print( #function , #line, "Error")}
+        
+        var tempList: [Place] = []
+        
+        for place in places {
+            guard
+                let optionalX = place["x"],
+                let optionalY = place["y"],
+                let x = Double(optionalX),
+                let y = Double(optionalY)
+            else {
+                print( #function , #line, "Error")
+                continue
+            }
+            
+            let coordinate = Coordinate(latitude: y, longitude: x)
+            let placeName = place["place_name"]
+            let roadAddress = place["road_address_name"]
+            let addressName = place["address_name"]
+            let placeUrl = place["http://place.map.kakao.com/26338954"]
+            
+            let tempPlace = Place(
+                coordinate: coordinate,
+                placeName: placeName,
+                roadAddress: roadAddress,
+                addressName: addressName,
+                placeUrl: placeUrl)
+            
+            tempList.append(tempPlace)
+        }
+        model.placeList = tempList
+        signUpView.tableView.reloadData()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.signUpView.constraint.constant = self.view.frame.height / 3
+            self.signUpView.layoutIfNeeded()
+        })
+        
+        
     }
     
     @objc func idCheckNotification(_ notification: Notification) {
@@ -128,6 +179,10 @@ class SignUpViewController: UIViewController {
 
 
 extension SignUpViewController: signUpViewDelegate {
+    func searchAction(query: String) {
+        api.kakaoSearch(queryType: .keyword, data: ["query": query], notificationName: model.makeNotificationName(notificationName: .searchKakao))
+    }
+    
     
     func SignUpAction(id: String, nickName: String, pw: String) {
         guard let coordinateData = model.coordinate else {
@@ -173,6 +228,43 @@ extension SignUpViewController: signUpViewDelegate {
     
 }
 
+extension SignUpViewController: UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        model.coordinate = model.placeList[indexPath.row].coordinate
+        UIView.animate(withDuration: 0.2, animations: {
+            self.signUpView.constraint.constant = 0
+            self.signUpView.layoutIfNeeded()
+        })
+        signUpView.addressTextField.text = model.placeList[indexPath.row].roadAddress
+        
+    }
+    
+}
+
+extension SignUpViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        model.placeList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") {
+            cell.textLabel?.text = model.placeList[indexPath.row].roadAddress
+            cell.detailTextLabel?.text = model.placeList[indexPath.row].addressName
+            return cell
+        }else {
+            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+            cell.textLabel?.text = model.placeList[indexPath.row].roadAddress
+            cell.detailTextLabel?.text = model.placeList[indexPath.row].addressName
+            return cell
+        }
+        
+    }
+    
+    
+}
 
 extension SignUpViewController: MapSearchViewControllerDelegate {
     

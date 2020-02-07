@@ -3,9 +3,12 @@ import UIKit
 class GetTogetherListViewController: UIViewController {
     let tableView = UITableView()
     var promisses = [Promise]()
+    let className = "GetTogetherListViewController"
+    let api = Api(apiProtocol: .http, apiUrl: .getPromise, port: 80)
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        addObservers()
     }
     private func setUI() {
         self.view.backgroundColor = .white
@@ -31,11 +34,54 @@ class GetTogetherListViewController: UIViewController {
         ])
     }
     func setData() {
-        for i in 0...20 {
-            let promiss = Promise(date: Date(), members: "memebers \(i)", placeTitle: "placeTitle \(i)", placeLatitude: Double(i), placeLongitude: Double(i), comment: "comment \(i)")
-            promisses.append(promiss)
-        }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let id = UserDefaults.standard.string(forKey: "id") else { return }
+        api.request(method: .get, notificationName: className, data: ["id": id])
+        
+    }
+    
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(getData(_:)), name: NSNotification.Name(className), object: nil)
+        
+    }
+    
+    @objc func getData(_ notification: Notification) {
+        
+        guard let data = notification.userInfo?[className] as? [String: Any] else { return }
+        guard let json = data["result"] as? [[String: String]] else { return }
+        var tempUserList: [Promise] = []
+        for promise in json {
+            
+            guard
+                let members = promise["members"],
+                let placeTitle = promise["placetitle"],
+                let comment = promise["comment"],
+                let dateString = promise["date"],
+                let addressName = promise["addressName"],
+                let latitued = promise["latitude"],
+                let longitude = promise["longitude"]
+                else { return }
+            
+                
+                
+            
+            
+            
+//            let promise = Promise(date: <#T##Date#>, members: members, placeTitle: placeTitle, placeLatitude: , placeLongitude: <#T##Double#>, comment: comment)
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+    
 }
 // MARK: - UITableViewDataSource
 extension GetTogetherListViewController: UITableViewDataSource {

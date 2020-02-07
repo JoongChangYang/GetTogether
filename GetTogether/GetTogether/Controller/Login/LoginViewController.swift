@@ -41,11 +41,13 @@ class LoginViewController: UIViewController {
             let stringResult = optionalResult,
             let result = Bool(stringResult),
             let optionalID = data["id"] as? String?,
+            let optionalNickName = data["nickName"] as? String?,
+            let nickName = optionalNickName,
             let id = optionalID
         else { return }
-        
+        print(nickName)
         if result {
-            successLogin(id: id)
+            successLogin(id: id, nickName: nickName)
         }else {
             displayAlert(title: "알림", message: "회원정보를 확인하세요")
             
@@ -54,12 +56,13 @@ class LoginViewController: UIViewController {
     }
     
     //로그인 성공 이벤트
-    private func successLogin(id: String) {
+    private func successLogin(id: String, nickName: String) {
         print(id)
         let customTabBarVC = CustomTabBarController()
         guard let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
         delegate.window?.rootViewController = customTabBarVC
         UserDefaults.standard.set(id, forKey: "id")
+        UserDefaults.standard.set(nickName, forKey: "nickName")
         
     }
     

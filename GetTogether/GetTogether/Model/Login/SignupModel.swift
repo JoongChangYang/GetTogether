@@ -13,6 +13,7 @@ import Foundation
 struct SignupModel {
     private let className = "SignUpViewController"
     var coordinate: Coordinate?
+    var placeList: [Place] = []
     
     mutating func makeNotificationName(notificationName: NotificationName) -> String {
         className + notificationName.rawValue

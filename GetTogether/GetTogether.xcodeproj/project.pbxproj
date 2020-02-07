@@ -26,6 +26,12 @@
 		3172302623EA94EE003DBE32 /* SetUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172302523EA94EE003DBE32 /* SetUpViewController.swift */; };
 		3172302823EA9502003DBE32 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172302723EA9502003DBE32 /* SetupView.swift */; };
 		318000C223EC9D6C00F6602E /* GetTogetherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318000C123EC9D6C00F6602E /* GetTogetherDetailViewController.swift */; };
+		318000C423ECA8C000F6602E /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318000C323ECA8C000F6602E /* PlaceInfoView.swift */; };
+		318000C623ECB79A00F6602E /* MakePromiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318000C523ECB79A00F6602E /* MakePromiseViewController.swift */; };
+		318000C823ECB7F600F6602E /* MakePromiseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318000C723ECB7F600F6602E /* MakePromiseView.swift */; };
+		318000CA23ECC3B900F6602E /* MakePromiseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318000C923ECC3B900F6602E /* MakePromiseCollectionViewCell.swift */; };
+		318000CC23ECE87A00F6602E /* MakePromiseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318000CB23ECE87A00F6602E /* MakePromiseModel.swift */; };
+		318000CE23ED33CD00F6602E /* GetTogetherListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318000CD23ED33CD00F6602E /* GetTogetherListModel.swift */; };
 		31B5246C23E7C94700364E08 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B5244723E7C94600364E08 /* map_pinup_custom@3x.png */; };
 		31B5246D23E7C94700364E08 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B5244823E7C94600364E08 /* map_pin_custom.png */; };
 		31B5246E23E7C94700364E08 /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B5244923E7C94600364E08 /* shadow_balloon.png */; };
@@ -101,6 +107,12 @@
 		3172302523EA94EE003DBE32 /* SetUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpViewController.swift; sourceTree = "<group>"; };
 		3172302723EA9502003DBE32 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		318000C123EC9D6C00F6602E /* GetTogetherDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTogetherDetailViewController.swift; sourceTree = "<group>"; };
+		318000C323ECA8C000F6602E /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
+		318000C523ECB79A00F6602E /* MakePromiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePromiseViewController.swift; sourceTree = "<group>"; };
+		318000C723ECB7F600F6602E /* MakePromiseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePromiseView.swift; sourceTree = "<group>"; };
+		318000C923ECC3B900F6602E /* MakePromiseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePromiseCollectionViewCell.swift; sourceTree = "<group>"; };
+		318000CB23ECE87A00F6602E /* MakePromiseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePromiseModel.swift; sourceTree = "<group>"; };
+		318000CD23ED33CD00F6602E /* GetTogetherListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTogetherListModel.swift; sourceTree = "<group>"; };
 		31B5244723E7C94600364E08 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		31B5244823E7C94600364E08 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
 		31B5244923E7C94600364E08 /* shadow_balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_balloon.png; sourceTree = "<group>"; };
@@ -234,6 +246,7 @@
 			children = (
 				3172301723EA7C16003DBE32 /* MainViewController.swift */,
 				31DA961D23E7B038008FCEAF /* MapSearchViewController.swift */,
+				318000C523ECB79A00F6602E /* MakePromiseViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -243,6 +256,8 @@
 			children = (
 				31DA961F23E7B129008FCEAF /* MapSearchView.swift */,
 				3172301B23EA7C3C003DBE32 /* MainView.swift */,
+				318000C323ECA8C000F6602E /* PlaceInfoView.swift */,
+				318000C723ECB7F600F6602E /* MakePromiseView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -252,6 +267,7 @@
 			children = (
 				3172301923EA7C28003DBE32 /* MainModel.swift */,
 				3128F46C23EC3E9000C0A42A /* MapSearchModel.swift */,
+				318000CB23ECE87A00F6602E /* MakePromiseModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -270,6 +286,7 @@
 			children = (
 				3172301F23EA7C78003DBE32 /* FriendListModel.swift */,
 				31B7290D23EAA54F00E4864D /* AddFriendModel.swift */,
+				318000CD23ED33CD00F6602E /* GetTogetherListModel.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -407,6 +424,7 @@
 				31B7291023EACF1000E4864D /* GetTogetherCellTableViewCell.swift */,
 				3128F46A23EBF6E900C0A42A /* FriendListCell.swift */,
 				3128F46E23EC5DF100C0A42A /* SearchMapCell.swift */,
+				318000C923ECC3B900F6602E /* MakePromiseCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -582,14 +600,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				318000CE23ED33CD00F6602E /* GetTogetherListModel.swift in Sources */,
 				3128F46F23EC5DF100C0A42A /* SearchMapCell.swift in Sources */,
 				3172301E23EA7C58003DBE32 /* FriendListViewController.swift in Sources */,
+				318000CA23ECC3B900F6602E /* MakePromiseCollectionViewCell.swift in Sources */,
 				31B7290E23EAA54F00E4864D /* AddFriendModel.swift in Sources */,
 				31BC25E423E6031A00C971AB /* Api.swift in Sources */,
 				3128F47223EC720900C0A42A /* AnnotationInfoView.swift in Sources */,
 				3128F46B23EBF6E900C0A42A /* FriendListCell.swift in Sources */,
 				3172301C23EA7C3C003DBE32 /* MainView.swift in Sources */,
 				31BC25E623E6108400C971AB /* SignupModel.swift in Sources */,
+				318000C823ECB7F600F6602E /* MakePromiseView.swift in Sources */,
 				3172302823EA9502003DBE32 /* SetupView.swift in Sources */,
 				31B7291123EACF1000E4864D /* GetTogetherCellTableViewCell.swift in Sources */,
 				3172301623EA7B94003DBE32 /* CustomTabBarControllerViewController.swift in Sources */,
@@ -601,6 +622,7 @@
 				318000C223EC9D6C00F6602E /* GetTogetherDetailViewController.swift in Sources */,
 				31B7290C23EAA53200E4864D /* AddFriendView.swift in Sources */,
 				31BC25D823E5D78700C971AB /* LoginViewController.swift in Sources */,
+				318000CC23ECE87A00F6602E /* MakePromiseModel.swift in Sources */,
 				31BC25DE23E5E23700C971AB /* Color.swift in Sources */,
 				3172301A23EA7C28003DBE32 /* MainModel.swift in Sources */,
 				31B5249623E8034800364E08 /* DataSet.swift in Sources */,
@@ -610,12 +632,14 @@
 				3172302223EA7CA8003DBE32 /* FriendListView.swift in Sources */,
 				3172302023EA7C78003DBE32 /* FriendListModel.swift in Sources */,
 				31DA961E23E7B038008FCEAF /* MapSearchViewController.swift in Sources */,
+				318000C423ECA8C000F6602E /* PlaceInfoView.swift in Sources */,
 				31BC25E223E5E75500C971AB /* SignUpView.swift in Sources */,
 				31BC25C123E5D6C900C971AB /* AppDelegate.swift in Sources */,
 				31DA961C23E6E5D2008FCEAF /* User.swift in Sources */,
 				31BC25DA23E5D7FD00C971AB /* LoginView.swift in Sources */,
 				31BC25C323E5D6C900C971AB /* SceneDelegate.swift in Sources */,
 				31DA962023E7B129008FCEAF /* MapSearchView.swift in Sources */,
+				318000C623ECB79A00F6602E /* MakePromiseViewController.swift in Sources */,
 				3172300F23E9C66B003DBE32 /* Notification.swift in Sources */,
 				3128F47423EC799D00C0A42A /* CustomAnnotationView.swift in Sources */,
 				3128F46D23EC3E9000C0A42A /* MapSearchModel.swift in Sources */,

@@ -17,16 +17,16 @@ protocol MapSearchViewControllerDelegate: class {
 class MapSearchViewController: UIViewController {
     
 //    private var annotations: [String : (view: UIView, constrain: NSLayoutConstraint)] = [:]
-    private let placeInfoView = PlaceInfoView()
-    private let mapSearchView = MapSearchView()
+    let placeInfoView = PlaceInfoView()
+    let mapSearchView = MapSearchView()
     private let searchBar = UISearchController()
-    private let api = Api(apiProtocol: .http, apiUrl: .signUp, port: 80)
+    let api = Api(apiProtocol: .http, apiUrl: .addPromise, port: 80)
     private let className = "MapSearchViewController"
     weak var delegate: MapSearchViewControllerDelegate?
     private var coordinate: Coordinate?
     private var addressName: String?
     var model = MapSearchModel()
-   
+    private var makePromiseCase = MakePromiseCase.defult
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,6 +174,8 @@ class MapSearchViewController: UIViewController {
     }
     
     
+    
+    
 
 }
 
@@ -192,8 +194,17 @@ extension MapSearchViewController: PlaceInfoViewDelegate {
     
     
     func makePromise() {
-        let makePromissVC = MakePromiseViewController()
+        guard
+            let placeTitle = model.placeTitle,
+            let addressName = model.addressName,
+            let coordinate = model.coordinate
+            else { return }
+        
+        let model = MakePromiseModel(placeTitle: placeTitle, coordinate: coordinate, addressName: addressName)
+        
+        let makePromissVC = MakePromiseViewController(model: model, makePromiseCase: makePromiseCase)
         navigationController?.pushViewController(makePromissVC, animated: true)
+        
     }
     
     
@@ -237,24 +248,33 @@ extension MapSearchViewController: UITableViewDelegate {
 extension MapSearchViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard
-            let annotation = view.annotation,
-            let optionalSubTitle = annotation.subtitle,
-            let subTitle = optionalSubTitle
-            else { return }
         
-        guard let index = model.placeList.firstIndex(where: {
-            $0.roadAddress == subTitle
-        }) else { return }
-        
-        let place = model.placeList[index]
-        placeInfoView.contfigure(placeName: place.placeName, roadAddress: place.roadAddress, adddressName: place.addressName, placeUrl: place.placeUrl)
-        
-        placeInfoView.isHidden = false
-        UIView.animate(withDuration: 0.2, animations: {
-            self.placeInfoView.transform = .identity
-            self.placeInfoView.layoutIfNeeded()
-        })
+        if makePromiseCase == .defult{
+            guard
+                 let annotation = view.annotation,
+                 let optionalSubTitle = annotation.subtitle,
+                 let subTitle = optionalSubTitle
+                 else { return }
+             
+             guard let index = model.placeList.firstIndex(where: {
+                 $0.roadAddress == subTitle
+             }) else { return }
+             
+             let place = model.placeList[index]
+            
+             model.placeTitle = place.placeName
+             model.addressName = place.roadAddress
+             model.coordinate = place.coordinate
+             
+             placeInfoView.contfigure(placeName: place.placeName, roadAddress: place.roadAddress, adddressName: place.addressName, placeUrl: place.placeUrl)
+             
+             placeInfoView.isHidden = false
+             UIView.animate(withDuration: 0.2, animations: {
+                 self.placeInfoView.transform = .identity
+                 self.placeInfoView.layoutIfNeeded()
+             })
+             
+        }
         
         
     }

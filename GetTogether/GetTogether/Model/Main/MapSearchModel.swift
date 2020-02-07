@@ -12,6 +12,8 @@ import Foundation
 struct MapSearchModel {
     
     var placeList: [Place] = []
-    
+    var coordinate: Coordinate?
+    var addressName: String?
+    var placeTitle: String?
     
 }

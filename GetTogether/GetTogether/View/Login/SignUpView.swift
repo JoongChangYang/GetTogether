@@ -17,6 +17,8 @@ protocol signUpViewDelegate: class {
     
     func presentSerchMapViewController()
     
+    func searchAction(query: String)
+    
 }
 
 class SignUpView: UIView {
@@ -46,7 +48,7 @@ class SignUpView: UIView {
     }
     private var nickNameCheck = false
     
-    
+    var constraint = NSLayoutConstraint()
     private let idTextField = UITextField()
     private let idCheckButton = UIButton(type: .system)
     
@@ -59,13 +61,13 @@ class SignUpView: UIView {
     
 //    private let addressNameLabel = UILabel()
     
-    private let addressTextField = UITextField()
+    let addressTextField = UITextField()
     
     private let signUpButton = UIButton(type: .system)
     
     private let scrollView = UIScrollView()
     
-    private let tableView = UITableView()
+    let tableView = UITableView()
     
     private var scrollViewConstraint: NSLayoutConstraint?
     
@@ -93,7 +95,7 @@ class SignUpView: UIView {
     private func setupUI() {
         backgroundColor = .white
         addSubview(scrollView)
-        scrollView.addSubViews([idTextField, idCheckButton, nickNameTextField, pwTextField, pwCheckTextField, addressTextField, searchAddressButton, signUpButton])
+        scrollView.addSubViews([idTextField, idCheckButton, nickNameTextField, pwTextField, pwCheckTextField, addressTextField, searchAddressButton, signUpButton, tableView])
         
         
         
@@ -218,6 +220,14 @@ class SignUpView: UIView {
             .leading(equalTo: addressTextField.trailingAnchor, constant: 10)
             .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
         searchAddressButton.heightAnchor.constraint(equalToConstant: height).isActive = true
+        
+        tableView.layout
+            .top(equalTo: addressTextField.bottomAnchor, constant: marginY)
+            .leading(equalTo: scrollView.leadingAnchor, constant: 10)
+            .trailing(equalTo: scrollView.trailingAnchor, constant: -marginX)
+        constraint = tableView.bottomAnchor.constraint(equalTo: addressTextField.bottomAnchor)
+        constraint.isActive = true
+        
 
         signUpButton.layout
             .top(equalTo: searchAddressButton.bottomAnchor, constant: marginY * 3)
@@ -239,8 +249,8 @@ class SignUpView: UIView {
     
     
     @objc func didTapSearchAddressButton() {
-        
-        delegate?.presentSerchMapViewController()
+        guard let test = addressTextField.text else { return }
+        delegate?.searchAction(query: test)
         
     }
     

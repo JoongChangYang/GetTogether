@@ -18,6 +18,8 @@ enum ApiUrl: String {
     case logIn =  "/Login.php"
     case addFriend = "/AddFriend.php"
     case getFriendList = "/GetFriendList.php"
+    case addPromise = "/AddPromise.php"
+    case getPromise = "/GetPromise.php"
 }
 
 enum HttpMethod: String {
@@ -96,8 +98,8 @@ struct Api {
                 
                 // 들어온 데이터를 가공해서 notification을 날려준다
                 guard let data = data else { return print(#function, "Data is nil")}
-//                guard let stringResponse = String(data: data, encoding: .utf8) else { return }
-//                print(stringResponse)
+                guard let stringResponse = String(data: data, encoding: .utf8) else { return }
+                print(stringResponse)
                 guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any?]
                     else { return print(#function, "data Decoding Fail")}
                 
@@ -162,8 +164,8 @@ struct Api {
 //                }
                 
                 guard let data = data else { return print( "Data is nil") }
-                guard let stringResponse = String(data: data, encoding: .utf8) else { return }
-                print(stringResponse)
+//                guard let stringResponse = String(data: data, encoding: .utf8) else { return }
+//                print(stringResponse)
                 guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any?]
                     
                     else { return print( "data Decodding Fail") }
@@ -245,8 +247,8 @@ struct Api {
                 let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any?]
                     else { return print(#function, "data json encode fail")}
                 
-//                guard let stringResponse = String(data: data, encoding: .utf8) else { return }
-//                dump(stringResponse)
+                guard let stringResponse = String(data: data, encoding: .utf8) else { return }
+                dump(stringResponse)
                 
                     DispatchQueue.main.async {
                         
