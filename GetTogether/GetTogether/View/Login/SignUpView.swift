@@ -103,6 +103,8 @@ class SignUpView: UIView {
         idTextField.delegate = self
         
         idCheckButton.setTitle("중복 확인", for: .normal)
+        idCheckButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+
         idCheckButton.backgroundColor = ThemeColor.basic
         idCheckButton.tintColor = .white
         idCheckButton.layer.cornerRadius = 4
@@ -134,6 +136,7 @@ class SignUpView: UIView {
         addressTextField.delegate = self
         
         searchAddressButton.setTitle("주소 검색", for: .normal)
+        searchAddressButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         searchAddressButton.backgroundColor = ThemeColor.basic
         searchAddressButton.layer.cornerRadius = 4
         searchAddressButton.tintColor = .white
@@ -144,6 +147,7 @@ class SignUpView: UIView {
 //        addressNameLabel.textColor = ThemeColor.warning
         
         signUpButton.setTitle("회원가입", for: .normal)
+        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         signUpButton.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.4745098039, blue: 0.8784313725, alpha: 1)
         signUpButton.tintColor = .white
         signUpButton.layer.cornerRadius = 4

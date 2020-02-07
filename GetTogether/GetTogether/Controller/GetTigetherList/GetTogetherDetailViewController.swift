@@ -88,8 +88,7 @@ class GetTogetherDetailViewController: UIViewController {
             cardBg.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -margin),
             cardBg.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin),
             cardBg.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin),
-            cardBg.widthAnchor.constraint(equalTo: guide.widthAnchor, multiplier: 0.91),
-
+            cardBg.widthAnchor.constraint(equalTo: guide.widthAnchor, multiplier: 0.91)
         ])
         
         placeTitleLabel.translatesAutoresizingMaskIntoConstraints = false

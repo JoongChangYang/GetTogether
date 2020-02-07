@@ -20,14 +20,13 @@ class FriendListViewController: UIViewController {
         setupUI()
         addObservers()
         friendListView.tableView.dataSource = self
+        friendListView.tableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         FriendList.shared.requestOfGetFriendList(notificationName: getFrienListKey)
-        
-        
     }
     
     @objc func getFriendList(_ notification: Notification) {
@@ -100,7 +99,6 @@ class FriendListViewController: UIViewController {
     @objc func didTapSearchFriendButton() {
         
     }
-    
 
 }
 
@@ -118,4 +116,30 @@ extension FriendListViewController: UITableViewDataSource {
     }
     
     
+}
+
+extension FriendListViewController: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            
+            alert(indexPath: indexPath)
+        }
+    }
+    
+    func alert(indexPath: IndexPath) {
+        let controller = UIAlertController(title: "경고", message: "친구 데이터를 정말 삭제할까요?\n삭제하면 친구목록에서 사라집니다.", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "삭제", style: .destructive) { (_) in
+            FriendList.shared.list.remove(at: indexPath.row)
+            self.friendListView.tableView.deleteRows(at: [indexPath], with: .fade)
+//            self.friendListView.tableView.reloadData()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        controller.addAction(ok)
+        controller.addAction(cancel)
+        present(controller, animated: true)
+    }
 }

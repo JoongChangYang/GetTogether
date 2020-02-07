@@ -40,16 +40,22 @@ class PlaceInfoView: UIView {
         transform = .init(scaleX: 0, y: 0)
         isHidden = true
         
-        placeNameLabel.font = .boldSystemFont(ofSize: 20)
         
+        
+        placeNameLabel.font = .systemFont(ofSize: 26)
+        roadAddressLabel.font = .systemFont(ofSize: 16)
         addressNameLabel.font = .systemFont(ofSize: 16)
+        addressNameLabel.textColor = .darkGray
         
         promissButton.backgroundColor = ThemeColor.basic
+        promissButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        promissButton.layer.cornerRadius = 4
+        promissButton.shadow()
         promissButton.setTitle("약속 잡기", for: .normal)
         promissButton.tintColor = .white
         promissButton.addTarget(self, action: #selector(makePromiss), for: .touchUpInside)
         
-        closeButton.setTitle("X", for: .normal)
+        closeButton.setTitle("✕", for: .normal)
         closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         
         
@@ -68,9 +74,9 @@ class PlaceInfoView: UIView {
     
     func contfigure(placeName: String?, roadAddress: String?, adddressName: String?, placeUrl: String?) {
         
-        placeNameLabel.text = placeName
+        placeNameLabel.text = "📍 " + (placeName ?? "")
         roadAddressLabel.text = roadAddress
-        addressNameLabel.text = adddressName
+        addressNameLabel.text = (adddressName ?? "") + " (지번)"
         placeUrlLabel.text = placeUrl
         
     }
@@ -79,39 +85,43 @@ class PlaceInfoView: UIView {
     
     
     private func setupConstraint() {
-        let margin: CGFloat = 8
+        let padding: CGFloat = 24
+        let margin: CGFloat = 18
+        let height: CGFloat = 56
         
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.topAnchor.constraint(equalTo: topAnchor, constant: margin).isActive = true
-        closeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin / 2).isActive = true
+        closeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true
         
         
         placeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        placeNameLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: margin * 2).isActive = true
+        placeNameLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor).isActive = true
         placeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin).isActive = true
-        placeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true
+        placeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
         
         roadAddressLabel.translatesAutoresizingMaskIntoConstraints = false
-        roadAddressLabel.topAnchor.constraint(equalTo: placeNameLabel.bottomAnchor, constant: margin).isActive = true
-        roadAddressLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin).isActive = true
-        roadAddressLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true
+        roadAddressLabel.topAnchor.constraint(equalTo: placeNameLabel.bottomAnchor, constant: padding).isActive = true
+        roadAddressLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
+        roadAddressLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
         
         addressNameLabel.translatesAutoresizingMaskIntoConstraints = false
         addressNameLabel.topAnchor.constraint(equalTo: roadAddressLabel.bottomAnchor, constant: margin).isActive = true
-        addressNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin).isActive = true
-        addressNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true
+        addressNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
+        addressNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
         
         placeUrlLabel.translatesAutoresizingMaskIntoConstraints = false
         placeUrlLabel.topAnchor.constraint(equalTo: addressNameLabel.bottomAnchor, constant: margin).isActive = true
-        placeUrlLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin).isActive = true
-        placeUrlLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true
+        placeUrlLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
+        placeUrlLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
         
         promissButton.translatesAutoresizingMaskIntoConstraints = false
         promissButton.topAnchor.constraint(equalTo: placeUrlLabel.bottomAnchor, constant: margin).isActive = true
-        promissButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin).isActive = true
-        promissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true
-        
-        
+        promissButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
+        promissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
+        promissButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding).isActive = true
+    
+        promissButton.heightAnchor.constraint(equalToConstant: height).isActive = true
+                
     }
     
 }

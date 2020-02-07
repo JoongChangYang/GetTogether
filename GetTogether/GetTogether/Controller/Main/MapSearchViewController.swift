@@ -95,19 +95,27 @@ class MapSearchViewController: UIViewController {
     }
     
     private func setupUI() {
-        let margin: CGFloat = 40
+        let margin: CGFloat = 18
         
         view.addSubview(mapSearchView)
         view.addSubview(placeInfoView)
         mapSearchView.layout.top().leading().trailing().bottom()
         mapSearchView.mapView.delegate = self
         
-        placeInfoView
-            .layout
-            .top(constant: margin)
-            .leading(constant: margin)
-            .trailing(constant: -margin)
-            .bottom(constant: -margin)
+        placeInfoView.layer.cornerRadius = 4
+        placeInfoView.shadow()
+        
+        let guide = self.view.safeAreaLayoutGuide
+        
+        placeInfoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            placeInfoView.centerYAnchor.constraint(equalTo: guide.centerYAnchor, constant: 0),
+            placeInfoView.centerXAnchor.constraint(equalTo: guide.centerXAnchor, constant: 0),
+            placeInfoView.widthAnchor.constraint(equalTo: guide.widthAnchor, constant: -margin * 2),
+            placeInfoView.heightAnchor.constraint(equalTo: guide.heightAnchor, constant: -margin * 22),
+            placeInfoView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -margin)
+        ])
+            
         placeInfoView.delegate = self
         
         
