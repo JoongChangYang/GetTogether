@@ -60,7 +60,7 @@ class MakePromiseView: UIView {
         makePromiseButton.layer.cornerRadius = 16
         
         tableView.register(FriendListCell.self, forCellReuseIdentifier: "MakePromise")
-        
+        tableView.isMultipleTouchEnabled = true
         datePicker.minimumDate = Date()
         
         setupConstraint()
