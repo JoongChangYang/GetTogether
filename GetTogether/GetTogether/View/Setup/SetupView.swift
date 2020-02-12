@@ -40,6 +40,10 @@ class SetupView: UIView {
         
     }
     
+//    func setTarget(_ controller: UIViewController) {
+//        logoutButton.addTarget(controller.self, action: #selector(), for: .allEditingEvents)
+//    }
+    
     private func setupConstraint() {
         
         logoutButton.translatesAutoresizingMaskIntoConstraints = false

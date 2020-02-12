@@ -60,7 +60,7 @@ class MapSearchView: UIView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         UIView.animate(withDuration: 0.1, animations: {
-
+            
             self.tableViewBottomConstraint?.constant = 0
             self.layoutIfNeeded()
         })

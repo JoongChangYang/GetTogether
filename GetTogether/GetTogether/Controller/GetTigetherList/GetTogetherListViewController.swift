@@ -65,8 +65,9 @@ class GetTogetherListViewController: UIViewController {
                 let longitude = promise["longitude"]
                 else { return }
             
-                
-                
+            guard let dateData = try? JSONEncoder().encode(dateString) else { return }
+            guard let date = try? JSONDecoder().decode(Date.self, from: dateData) else { return }
+                print(date)
             
             
             

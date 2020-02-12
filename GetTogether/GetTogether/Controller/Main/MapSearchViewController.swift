@@ -86,6 +86,14 @@ class MapSearchViewController: UIViewController {
         
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.placeInfoView.transform = .init(scaleX: 0, y: 0)
+            self.mapSearchView.layoutIfNeeded()
+        })
+    }
+    
     private func setNavigation() {
         navigationController?.navigationBar.backgroundColor = .white
         navigationItem.searchController = searchBar
